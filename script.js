@@ -13,23 +13,39 @@
             - use your browsers console throughout testing.
 */
 
+//changed properties of the gameDetails object to store my own values
 export const gameDetails = {   
-    title: 'Game Title',
-    desc: 'Welcome to the world of... here are some quick rules & concepts...',
-    author: 'Student Name',
-    cohort: 'SBPT-2022',
-    startingRoomDescription: 'What you see before you is...',
+    title: 'My Version of Zorkington',
+    desc: 'Welcome to the world of grocery store. Here are some quick rules & concepts. You can move along aisles, check products expiration dates, put items back or in your cart. Finally, you can pay and exit the store',
+    author: 'Irina Startseva',
+    cohort: 'SBPT-2023',
+    startingRoomDescription: 'What you see before you is a grocery store entrance. You see large carts, small carts, and baskets.  You already have a cart. There are also promo stands notifiying shoppers which products are currently on sale. You can enter the produce aisle from here. You can exit the store right away, too.',
     playerCommands: [
         // replace these with your games commands as needed
-        'inspect', 'view', 'look', 'pickup',
+       //'inspect', 'view', 'look', 'pickup', 'enter'
+       'enter', 'view', 'pickup', 'check_expiration_date', 'put_back', 'put_in_cart', 'pay', 'exit'
     ]
     // Commands are basic things that a player can do throughout the game besides possibly moving to another room. This line will populate on the footer of your game for players to reference. 
     // This shouldn't be more than 6-8 different commands.
 }
 
 // Your code here
+/*
+let aisle = {
+    entrance:['produce_aisle'],
+    produce_aisle:['bakery_aisle'],
+    bakery_aisle: ['dairy_aisle', 'meat_asile'],
+    dairy_aisle: ['meat_asile','bakery_asile'],
+    meat_asile: ['dairy_asile','bakery_asile'],
+    chekout_aisle:['entrance']
+};
+*/
+
+//let currentState = 'entrance';
 
 export const domDisplay = (playerInput) => {
+return playerInput;
+
     /* 
         TODO: for students
         - This function must return a string. 
