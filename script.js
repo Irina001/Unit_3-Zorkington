@@ -14,39 +14,77 @@
 */
 
 //changed properties of the gameDetails object to store my own values
-export const gameDetails = {   
-    title: 'My Version of Zorkington',
-    desc: 'Welcome to the world of grocery store. Here are some quick rules & concepts. You can move along aisles, check products expiration dates, put items back or in your cart. Finally, you can pay and exit the store',
-    author: 'Irina Startseva',
-    cohort: 'SBPT-2023',
-    startingRoomDescription: 'What you see before you is a grocery store entrance. You see large carts, small carts, and baskets.  You already have a cart. There are also promo stands notifiying shoppers which products are currently on sale. You can enter the produce aisle from here. You can exit the store right away, too.',
-    playerCommands: [
-        // replace these with your games commands as needed
-       //'inspect', 'view', 'look', 'pickup', 'enter'
-       'enter', 'view', 'pickup', 'check_expiration_date', 'put_back', 'put_in_cart', 'pay', 'exit'
-    ]
-    // Commands are basic things that a player can do throughout the game besides possibly moving to another room. This line will populate on the footer of your game for players to reference. 
-    // This shouldn't be more than 6-8 different commands.
+export const gameDetails = {
+  title: "My Version of Zorkington",
+  desc: "Welcome to the world of grocery store. Here are some quick rules & concepts. You start at the produce aisle. You can move to other aisles, check products expiration dates, put items back or in your cart. There will be a few items that you cannot pick up. Finally, you can pay and exit the store",
+  author: "Irina Startseva",
+  cohort: "SBPT-2023",
+  startingRoomDescription:
+    "What you see before you is a grocery store entrance. You see large carts, small carts, and baskets.  You already have a cart. There are also promo stands notifiying shoppers which products are currently on sale. You can enter the produce aisle from here. You can exit the store right away, too.",
+  playerCommands: [
+    // replace these with your games commands as needed
+    //'inspect', 'view', 'look', 'pickup', 'enter'
+    "enter",
+    "view",
+    "pickup",
+    "check_expiration_date",
+    "put_back",
+    "put_in_cart",
+    "pay",
+    "exit",
+  ],
+  // Commands are basic things that a player can do throughout the game besides possibly moving to another room. This line will populate on the footer of your game for players to reference.
+  // This shouldn't be more than 6-8 different commands.
+};
+
+//created class Aisle
+class Aisle {
+  constructor({items, aisle_description, exits}) {
+    this.items = items;
+    this.aisle_description = aisle_description;
+    this.exits = exits;
+  }
 }
 
-// Your code here
-/*
-let aisle = {
-    entrance:['produce_aisle'],
-    produce_aisle:['bakery_aisle'],
-    bakery_aisle: ['dairy_aisle', 'meat_asile'],
-    dairy_aisle: ['meat_asile','bakery_asile'],
-    meat_asile: ['dairy_asile','bakery_asile'],
-    chekout_aisle:['entrance']
-};
-*/
+//created instance of class Aisle
+let produce = new Aisle({
+    items: ['lettuce', 'tomatoes', 'cucumbers', 'broccoli'],
+    aisle_description: 'You are in produce aisle',
+    exits: ['bakery']
+})
 
-//let currentState = 'entrance';
+//another instance of class Aisle
+let bakery = new Aisle({
+    items: ['dougnuts', 'cupcakes', 'cakes', 'cookies'],
+    aisle_description: 'You are in bakery aisle',
+    exits: ['produce']
+})
+// Your code here
+//machine state to create rules how a player can mmove between aisle
+let state = {
+    
+    produce: produce,
+    bakery: bakery
+    //dairy: ['meat_aisle','bakery_aisle'],
+   //meat: ['dairy_aisle','bakery_aisle'],
+   //chekout_aisle:['entrance']
+};
+
+//initial state
+let currentState = produce;
 
 export const domDisplay = (playerInput) => {
-return playerInput;
 
-    /* 
+    //split user input 
+    const [action, target] = playerInput.split(' ');  
+  
+    //conditional to check if user input is valid action and target
+    if (action=='enter' && currentState.exits.includes(target)){
+        currentState = state[target];
+        return currentState.aisle_description;
+    }
+
+  /* 
         TODO: for students
         - This function must return a string. 
         - This will be the information that is displayed within the browsers game interface above the users input field.
@@ -77,5 +115,5 @@ return playerInput;
                     - What is the process of picking up an item exactly? ex: Look. Pick from a list of items. Put into players list of items... 
     */
 
-    // Your code here
-} 
+  // Your code here
+};
